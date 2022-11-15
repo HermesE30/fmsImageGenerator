@@ -32,6 +32,15 @@ function clickPost() {
   changeMenu();
 }
 
+function clickFoto() {
+  canvas = canvasPost;
+  context = contextPost;
+  canvasStory.style.display = 'none';
+  canvasPost.style.display = 'block';
+  menuSelecionado = "filter";
+  changeMenu();
+}
+
 function clickStory() {
   canvas = canvasStory;
   context = contextStory;
@@ -47,11 +56,12 @@ baseImageFigure.src = "./fms-base.png?v=2";
 const baseImageStory = new Image();
 baseImageStory.src = "./fms-base-story.png?v=2";
 
-const baseImageMascaraFigure = new Image();
-baseImageMascaraFigure.src = "./fms-base.png?v=2";
+const baseImageFiltro = new Image();
+baseImageFiltro.src = "./fms-thumb-mascara.png?v=2";
 
-const baseImageMascaraStory = new Image();
-baseImageMascaraStory.src = "./fms-base-story.png?v=2";
+const baseImageMascara = new Image();
+baseImageMascara.src = "./fms-mascara.png?v=2";
+
 
 let baseImageUsuario = new Image();
 
@@ -138,10 +148,10 @@ function changeMenu() {
   $main.classList.remove("hidden");
 
   switch (optionMenu()) {
-    // case "filter":
-    //   document.querySelector("input[name=yourname]").type = "file";
-    //   drawArte();
-    //   break;
+    case "filter":
+      document.querySelector("input[name=yourname]").type = "file";
+      drawArte();
+      break;
     default:
       document.querySelector("input[name=yourname]").type = "text";
       drawArte();
@@ -159,6 +169,12 @@ function drawArte() {
     context.drawImage(baseImageFigure, 0, 0);
   } else if (optionMenu() === "story") {
     context.drawImage(baseImageStory, 0, 0);
+  } else if (optionMenu() === "filter") {
+    if (baseImageUsuario.src) {
+      context.drawImage(baseImageMascara, 0, 0, 1080, 1080);
+    } else {
+      context.drawImage(baseImageFiltro, 0, 0, 1080, 1080);
+    }
   }
 
   context.save();
